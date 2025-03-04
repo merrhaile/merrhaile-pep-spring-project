@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.entity.Account;
+import com.example.entity.Message;
 import com.example.service.AccountService;
+import com.example.service.MessageService;
 
 /**
  * TODO: You will need to write your own endpoints and handlers for your controller using Spring. The endpoints you will need can be
@@ -23,19 +25,42 @@ import com.example.service.AccountService;
  @RestController
 public class SocialMediaController {
     private AccountService accountService;
+    private MessageService messageService;
+   
     @Autowired
-    public SocialMediaController(AccountService accountService){
+    public SocialMediaController(AccountService accountService, MessageService messageService){
         this.accountService = accountService;
+        this.messageService = messageService;
     }
 
+    /*
+     * handles account registration with the help of accountService class
+     * returns the created account with its new Id
+     */
+
     @PostMapping("register")
-    @ResponseStatus(HttpStatus.OK)
-    public @ResponseBody Account userRegistration(@RequestBody Account account){
-        return accountService.userRegistration(account);
+    public ResponseEntity<Account> userRegistration(@RequestBody Account account){
+        return ResponseEntity.ok(accountService.userRegistration(account));
     }
+
+    /*
+     * handles account login with the help of accountService class
+     * uses ResponseEntity to respond to the client
+     */
 
     @PostMapping("login")
     public ResponseEntity<Account> userLogin(@RequestBody Account account){
         return ResponseEntity.ok(accountService.userLogin(account));
+    }
+
+    /*
+     * this handler creates a message in the database and returns
+     * a ResponseBody of type message
+     */
+
+    @PostMapping(value = "messages")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Message creatMessage(@RequestBody Message message){
+        return messageService.createMessage(message);
     }
 }
