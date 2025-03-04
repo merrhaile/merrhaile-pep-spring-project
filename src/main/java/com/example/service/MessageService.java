@@ -1,5 +1,7 @@
 package com.example.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.example.entity.Message;
@@ -41,5 +43,29 @@ public class MessageService {
             throw new MessageLengthOutOfRangeException("Message is empty or exceeds 255 char-length");
         }
         else return messageRepository.save(message);
+    }
+
+    /**
+     * retrieves all message from the database
+     * @return
+     */
+    public List<Message> getAllMessages(){
+        return messageRepository.findAll();
+    }
+
+    public Message getMessageByMessageId(Integer id){
+        return new Message();
+    }
+
+    public Message getMessagesForUser(){
+        return new Message();
+    }
+
+    public Message updateMessageByMessageId(Integer id, Message message){
+        return new Message();
+    }
+
+    public Message deleteMessageByMessageId(Integer id){
+        return new Message();
     }
 }
