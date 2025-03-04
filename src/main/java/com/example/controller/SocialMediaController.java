@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -75,5 +76,11 @@ public class SocialMediaController {
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody List<Message> getAllMessages(){
         return messageService.getAllMessages();
+    }
+
+    @GetMapping(value = "messages/{messageId}")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody Message getMessageByMessageId(@PathVariable Integer messageId){
+        return messageService.getMessageByMessageId(messageId);
     }
 }

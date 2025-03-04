@@ -1,6 +1,7 @@
 package com.example.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -54,10 +55,12 @@ public class MessageService {
     }
 
     public Message getMessageByMessageId(Integer id){
-        return new Message();
+        Optional<Message> message = messageRepository.findById(id);
+        if(message.isPresent()) return messageRepository.findById(id).get();
+        else return null;
     }
 
-    public Message getMessagesForUser(){
+    public Message getAllMessagesForUser(){
         return new Message();
     }
 
