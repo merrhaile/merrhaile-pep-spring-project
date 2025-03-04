@@ -3,7 +3,10 @@ package com.example.service;
 import com.example.entity.Account;
 import com.example.exception.UserCredentialException;
 import com.example.exception.UserDuplicateException;
+import com.example.exception.UserLogInException;
 import com.example.repository.AccountRepository;
+
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
@@ -26,12 +29,12 @@ public class AccountService {
         return accountRepository.save(account);
     }
 
-    public Account userLogin(Account account) throws UserCredentialException{
-        Account user = accountRepository.findByUsername(account.getUsername());
-        if(user == null) 
-            throw new UserCredentialException("No such user");
-        if(user.getPassword() != account.getPassword())
-            throw new UserCredentialException("Inccorect password");
-        return user;
+    public Account userLogin(Account account) throws UserLogInException {
+        Optional<Account> user = accountRepository.findByUsername(account.getUsername()); 
+        if(user.isEmpty()) 
+            throw new UserLogInException("No such user");
+        else if(!user.get().getPassword().equals(account.getPassword()))
+            throw new UserLogInException("Inccorect password");
+        else return user.get();
     }
 }

@@ -1,7 +1,5 @@
 package com.example.exception;
 
-import javax.security.sasl.AuthenticationException;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -23,9 +21,9 @@ public class GlobalExceptionHandler {
         return exception.getMessage();
     }
 
-    @ExceptionHandler(AuthenticationException.class)
+    @ExceptionHandler(UserLogInException.class)
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
-    public String handleLoginException(AuthenticationException exception){
+    public String handleLoginException(UserLogInException exception){
         return exception.getMessage();
     }
 }
