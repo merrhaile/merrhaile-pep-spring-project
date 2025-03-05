@@ -111,4 +111,15 @@ public class SocialMediaController {
     public ResponseEntity<Integer>  updateMessageByMessageId(@PathVariable Integer messageId, @RequestBody Message message){
         return ResponseEntity.ok(messageService.updateMessageByMessageId(messageId, message));
     }
+
+    /**
+     * 
+     * @param account_id
+     * @return List<Message>
+     */
+    @GetMapping("accounts/{account_id}/messages")
+    @ResponseStatus(HttpStatus.OK)
+    public @ResponseBody List<Message> getAllMessagesForUser(@PathVariable Integer account_id){
+        return messageService.getAllMessagesForUser(account_id);
+    }
 }
