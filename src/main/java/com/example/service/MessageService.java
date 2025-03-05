@@ -78,13 +78,34 @@ public class MessageService {
         return null;
     }
 
+    /**
+     * 
+     * @param id
+     * @param message
+     * @return Integer
+     */
+    public Integer updateMessageByMessageId(Integer id, Message message) 
+                    throws ResourceNotFoundException, MessageLengthOutOfRangeException{
+        Message msg = getMessageByMessageId(id);
+        if(msg == null){
+            throw new ResourceNotFoundException("Message not found");
+        }
+        else if(message.getMessageText().length() == 0 || message.getMessageText().length() > 255){
+            throw new MessageLengthOutOfRangeException("Message is empty or exceeds 255 char-length");
+        }
+        else {
+            msg.setMessageText(message.getMessageText());
+            messageRepository.save(msg);
+            return 1;
+        }
+        
+       
+    }
     public Message getAllMessagesForUser(){
         return new Message();
     }
 
-    public Message updateMessageByMessageId(Integer id, Message message){
-        return new Message();
-    }
+    
 
     
 }
