@@ -1,10 +1,12 @@
 package com.example.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -77,10 +79,24 @@ public class SocialMediaController {
     public @ResponseBody List<Message> getAllMessages(){
         return messageService.getAllMessages();
     }
-
+    /**
+     * 
+     * @param messageId
+     * @return Message
+     */
     @GetMapping(value = "messages/{messageId}")
     @ResponseStatus(HttpStatus.OK)
     public @ResponseBody Message getMessageByMessageId(@PathVariable Integer messageId){
         return messageService.getMessageByMessageId(messageId);
+    }
+
+    /**
+     * 
+     * @param messageId
+     * @return ResponseEntity
+     */
+    @DeleteMapping(value = "messages/{messageId}")
+    public ResponseEntity<Integer>  deleteMessageByMessageId(@PathVariable Integer messageId){
+        return ResponseEntity.ok(messageService.deleteMessageByMessageId(messageId));
     }
 }

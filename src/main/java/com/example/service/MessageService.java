@@ -54,10 +54,28 @@ public class MessageService {
         return messageRepository.findAll();
     }
 
+    /**
+     * 
+     * @param id
+     * @return Message
+     */
     public Message getMessageByMessageId(Integer id){
         Optional<Message> message = messageRepository.findById(id);
         if(message.isPresent()) return messageRepository.findById(id).get();
         else return null;
+    }
+
+    /**
+     * 
+     * @param id
+     * @return Integer
+     */
+    public Integer deleteMessageByMessageId(Integer id){
+        if(messageRepository.findById(id).isPresent()){
+            messageRepository.deleteById(id);
+            return 1;
+        }
+        return null;
     }
 
     public Message getAllMessagesForUser(){
@@ -68,7 +86,5 @@ public class MessageService {
         return new Message();
     }
 
-    public Message deleteMessageByMessageId(Integer id){
-        return new Message();
-    }
+    
 }
